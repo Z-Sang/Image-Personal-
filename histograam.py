@@ -14,6 +14,7 @@ img = cv2.imread('8_bit.png',0)
 
 list_img = []
 intensity = [0 for i in range(max_intensity)]
+cumulative = [0 for i in range(max_intensity)]
 
 for row,index in enumerate(img):
     # print(row)
@@ -22,6 +23,13 @@ for row,index in enumerate(img):
 for i in list_img:
     intensity[int(i)] +=1
 
+for i in range(max_intensity):
+    if(i == 0):
+        cumulative[i] = intensity[i]
+    else:
+        cumulative[i] = intensity[i] + cumulative[i-1]
+# print(len(list_img))
+# print(cumulative[255])
 histr = cv2.calcHist([img],[0],None,[max_intensity],[min_intensity,max_intensity])
 
 plt.figure("Histogram")
@@ -31,4 +39,11 @@ plt.plot(intensity)
 plt.subplot(2,1,2)
 plt.title("From CV")
 plt.plot(histr)
+plt.figure("Cumulative")
+plt.subplot(2,1,1)
+plt.title("Histogram")
+plt.plot(intensity)
+plt.subplot(2,1,2)
+plt.title("Cumulative Histogram")
+plt.plot(cumulative)
 plt.show()
