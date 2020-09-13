@@ -4,7 +4,7 @@ from matplotlib import pyplot as plt
 
 min_intensity = 0
 max_intensity = 256
-path = '8_bit.png' 
+path = 'zsang.jpg' 
 
 img = cv2.imread(path)
 blueChannel = img[:,:,0]
