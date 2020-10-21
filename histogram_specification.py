@@ -50,7 +50,7 @@ def histogram_specification(img_target,img_input):
 img = cv2.imread('talay.jpg',0)
 cumulative = calculateCdf(img)
 histogram = calculateHistogram(img)
-img2 = cv2.imread('talay2.jpg',0)
+img2 = cv2.imread('tree.jpg',0)
 cumulative2 = calculateCdf(img2)
 histogram2 = calculateHistogram(img2)
 img3 = np.array(histogram_specification(img,img2),dtype='uint8')
