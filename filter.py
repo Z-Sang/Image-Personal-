@@ -52,7 +52,7 @@ def filter_image(img,coef):
     
     return filter_img
 
-img = cv2.imread('talay.jpg',0)
+img = cv2.imread('tree.jpg',0)
 histogram = calculateHistogram(img)
 box = [[1,1,1],[1,2,1],[1,1,1]]
 gaussian = [[1,2,1],[2,4,2],[1,2,1]]
