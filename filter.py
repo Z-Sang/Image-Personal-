@@ -17,36 +17,37 @@ def calculateHistogram(img):
 def filter_image(img,coef):
     height,width = img.shape
     filter_img = np.array([[0]*width]*height)
+    sum_coef = coef[0][0] + coef[0][1] + coef[0][2] + coef[1][0] + coef[1][1] + coef[1][2] + coef[2][0] + coef[2][1] + coef[2][2]
     for i in range(height):
         for j in range(width):
             if i == 0 and j == 0:
-                filter_img[i][j] = (img[i][j] * coef[1][1] + img[i][j+1] * coef[1][2]
+                filter_img[i][j] = 1/sum_coef * (img[i][j] * coef[1][1] + img[i][j+1] * coef[1][2]
                                     + img[i+1][j] * coef[2][1] + img[i+1][j+1] * coef[2][2])
             elif i == height-1 and j == width-1: 
-                filter_img[i][j] = (img[i-1][j-1] * coef[0][0] + img[i-1][j] * coef[0][1] 
+                filter_img[i][j] = 1/sum_coef * (img[i-1][j-1] * coef[0][0] + img[i-1][j] * coef[0][1] 
                                     + img[i][j-1] * coef[1][0] + img[i][j] * coef[1][1])
             elif i == 0 and j == width-1: 
-                filter_img[i][j] = (img[i][j-1] * coef[1][0] + img[i][j] * coef[1][1] 
+                filter_img[i][j] = 1/sum_coef * (img[i][j-1] * coef[1][0] + img[i][j] * coef[1][1] 
                                     + img[i+1][j-1] * coef[2][0] + img[i+1][j] * coef[2][1])
             elif i == height-1 and j == 0: 
-                filter_img[i][j] = (img[i-1][j] * coef[0][1] + img[i-1][j+1] * coef[0][2] 
+                filter_img[i][j] = 1/sum_coef * (img[i-1][j] * coef[0][1] + img[i-1][j+1] * coef[0][2] 
                                     + img[i][j] * coef[1][1] + img[i][j+1] * coef[1][2])
             elif i == 0:
-                filter_img[i][j] = (img[i][j-1] * coef[1][0] + img[i][j] * coef[1][1] + img[i][j+1] * coef[1][2]
+                filter_img[i][j] = 1/sum_coef * (img[i][j-1] * coef[1][0] + img[i][j] * coef[1][1] + img[i][j+1] * coef[1][2]
                                     + img[i+1][j-1] * coef[2][0] + img[i+1][j] * coef[2][1] + img[i+1][j+1] * coef[2][2])
             elif j == 0: 
-                filter_img[i][j] = (img[i-1][j] * coef[0][1] + img[i-1][j+1] * coef[0][2] 
+                filter_img[i][j] = 1/sum_coef * (img[i-1][j] * coef[0][1] + img[i-1][j+1] * coef[0][2] 
                                     + img[i][j] * coef[1][1] + img[i][j+1] * coef[1][2]
                                     + img[i+1][j] * coef[2][1] + img[i+1][j+1] * coef[2][2])
             elif i == height-1:
-                filter_img[i][j] = (img[i-1][j-1] * coef[0][0] + img[i-1][j] * coef[0][1] + img[i-1][j+1] * coef[0][2] 
+                filter_img[i][j] = 1/sum_coef * (img[i-1][j-1] * coef[0][0] + img[i-1][j] * coef[0][1] + img[i-1][j+1] * coef[0][2] 
                                     + img[i][j-1] * coef[1][0] + img[i][j] * coef[1][1] + img[i][j+1] * coef[1][2])
             elif j == width-1: 
-                filter_img[i][j] = (img[i-1][j-1] * coef[0][0] + img[i-1][j] * coef[0][1]  
+                filter_img[i][j] = 1/sum_coef * (img[i-1][j-1] * coef[0][0] + img[i-1][j] * coef[0][1]  
                                     + img[i][j-1] * coef[1][0] + img[i][j] * coef[1][1] 
                                     + img[i+1][j-1] * coef[2][0] + img[i+1][j] * coef[2][1])
             else:
-                filter_img[i][j] = (img[i-1][j-1] * coef[0][0] + img[i-1][j] * coef[0][1] + img[i-1][j+1] * coef[0][2] 
+                filter_img[i][j] = 1/sum_coef * (img[i-1][j-1] * coef[0][0] + img[i-1][j] * coef[0][1] + img[i-1][j+1] * coef[0][2] 
                                     + img[i][j-1] * coef[1][0] + img[i][j] * coef[1][1] + img[i][j+1] * coef[1][2]
                                     + img[i+1][j-1] * coef[2][0] + img[i+1][j] * coef[2][1] + img[i+1][j+1] * coef[2][2])
     
@@ -57,9 +58,9 @@ histogram = calculateHistogram(img)
 box = [[1,1,1],[1,2,1],[1,1,1]]
 gaussian = [[1,2,1],[2,4,2],[1,2,1]]
 maxican_hat = [[0,-1,0],[-1,8,-1],[0,-1,0]]
-img2 =  np.array(filter_image(img,box)/10,dtype='uint8')
-img3 =  np.array(filter_image(img,gaussian)/16,dtype='uint8')
-img4 =  np.array(filter_image(img,maxican_hat)/4,dtype='uint8')
+img2 =  np.array(filter_image(img,box),dtype='uint8')
+img3 =  np.array(filter_image(img,gaussian),dtype='uint8')
+img4 =  np.array(filter_image(img,maxican_hat),dtype='uint8')
 histogram2 = calculateHistogram(img2)
 histogram3 = calculateHistogram(img3)
 histogram4 = calculateHistogram(img4)
