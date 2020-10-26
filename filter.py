@@ -50,10 +50,20 @@ def filter_image(img,coef):
                 filter_img[i][j] = 1/sum_coef * (img[i-1][j-1] * coef[0][0] + img[i-1][j] * coef[0][1] + img[i-1][j+1] * coef[0][2] 
                                     + img[i][j-1] * coef[1][0] + img[i][j] * coef[1][1] + img[i][j+1] * coef[1][2]
                                     + img[i+1][j-1] * coef[2][0] + img[i+1][j] * coef[2][1] + img[i+1][j+1] * coef[2][2])
-    
+            
+            filter_img[i][j] = clampling(filter_img[i][j])
     return filter_img
 
-img = cv2.imread('tree.jpg',0)
+def clampling(inten):
+    if(inten > 255):
+        inten = 255
+    elif(inten < 0):
+        inten = 0
+    else:
+        inten = inten
+    return inten
+
+img = cv2.imread('talay.jpg',0)
 histogram = calculateHistogram(img)
 box = [[1,1,1],[1,2,1],[1,1,1]]
 gaussian = [[1,2,1],[2,4,2],[1,2,1]]
@@ -81,21 +91,21 @@ cv2.waitKey(0)
 # axs[1,1].set_title('Histogram of Maxican hat filter')
 # plt.show()
 
-# fig, (ax1,ax2) = plt.subplots(2,1) 
-# ax1.bar(np.linspace(0,255,num = 256),histogram,width = 1)
-# ax1.set_title('Histogram of Original')
-# ax2.bar(np.linspace(0,255,num = 256),histogram2,width = 1)
-# ax2.set_title('Histogram of Box filter')
+fig, (ax1,ax2) = plt.subplots(2,1) 
+ax1.bar(np.linspace(0,255,num = 256),histogram,width = 1)
+ax1.set_title('Histogram of Original')
+ax2.bar(np.linspace(0,255,num = 256),histogram2,width = 1)
+ax2.set_title('Histogram of Box filter')
 
-# fig2, (ax1,ax2) = plt.subplots(2,1) 
-# ax1.bar(np.linspace(0,255,num = 256),histogram,width = 1)
-# ax1.set_title('Histogram of Original')
-# ax2.bar(np.linspace(0,255,num = 256),histogram3,width = 1)
-# ax2.set_title('Histogram of Gaussian filter')
+fig2, (ax1,ax2) = plt.subplots(2,1) 
+ax1.bar(np.linspace(0,255,num = 256),histogram,width = 1)
+ax1.set_title('Histogram of Original')
+ax2.bar(np.linspace(0,255,num = 256),histogram3,width = 1)
+ax2.set_title('Histogram of Gaussian filter')
 
-# fig3, (ax1,ax2) = plt.subplots(2,1) 
-# ax1.bar(np.linspace(0,255,num = 256),histogram,width = 1)
-# ax1.set_title('Histogram of Original')
-# ax2.bar(np.linspace(0,255,num = 256),histogram4,width = 1)
-# ax2.set_title('Histogram of Maxican hat filter')
-# plt.show()
+fig3, (ax1,ax2) = plt.subplots(2,1) 
+ax1.bar(np.linspace(0,255,num = 256),histogram,width = 1)
+ax1.set_title('Histogram of Original')
+ax2.bar(np.linspace(0,255,num = 256),histogram4,width = 1)
+ax2.set_title('Histogram of Maxican hat filter')
+plt.show()
