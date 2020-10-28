@@ -18,6 +18,8 @@ def filter_image(img,coef):
     height,width = img.shape
     filter_img = np.array([[0]*width]*height)
     sum_coef = coef[0][0] + coef[0][1] + coef[0][2] + coef[1][0] + coef[1][1] + coef[1][2] + coef[2][0] + coef[2][1] + coef[2][2]
+    if sum_coef == 0:
+        sum_coef = 1
     for i in range(height):
         for j in range(width):
             if i == 0 and j == 0:
@@ -63,9 +65,9 @@ def clampling(inten):
         inten = inten
     return inten
 
-img = cv2.imread('talay.jpg',0)
+img = cv2.imread('tree.jpg',0)
 histogram = calculateHistogram(img)
-box = [[1,1,1],[1,2,1],[1,1,1]]
+box = [[1,1,1],[1,1,1],[1,1,1]]
 gaussian = [[1,2,1],[2,4,2],[1,2,1]]
 maxican_hat = [[0,-1,0],[-1,8,-1],[0,-1,0]]
 img2 =  np.array(filter_image(img,box),dtype='uint8')
