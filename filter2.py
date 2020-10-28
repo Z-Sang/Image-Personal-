@@ -137,7 +137,7 @@ def median_filter(img,weight_median):
 
     return median_img
 
-img = cv2.imread('tree.jpg',0)
+img = cv2.imread('talay.jpg',0)
 
 ## define coefficient
 
@@ -165,7 +165,20 @@ img10 = np.array(median_filter(img,median_coef),dtype='uint8')
 img11 = np.array(median_filter(img,weight_median),dtype='uint8')
 img12 = np.array(median_filter(img,median_coef2),dtype='uint8')
 img13 = np.array(median_filter(img,weight_median2),dtype='uint8')
-
+ 
+histogram = calculateHistogram(img)
+histogram2 = calculateHistogram(img2)
+histogram3 = calculateHistogram(img3)
+histogram4 = calculateHistogram(img4)
+histogram5 = calculateHistogram(img5)
+histogram6 = calculateHistogram(img6)
+histogram7 = calculateHistogram(img7)
+histogram8 = calculateHistogram(img8)
+histogram9 = calculateHistogram(img9)
+histogram10 = calculateHistogram(img10)
+histogram11 = calculateHistogram(img11)
+histogram12 = calculateHistogram(img12)
+histogram13 = calculateHistogram(img13)
 cv2.imshow('img',img)
 cv2.waitKey(0)
 cv2.imshow('img2',img2)
@@ -192,3 +205,76 @@ cv2.imshow('img12',img12)
 cv2.waitKey(0)
 cv2.imshow('img13',img13)
 cv2.waitKey(0)
+
+fig, (ax1,ax2) = plt.subplots(2,1) 
+ax1.bar(np.linspace(0,255,num = 256),histogram,width = 1)
+ax1.set_title('Histogram of Original')
+ax2.bar(np.linspace(0,255,num = 256),histogram2,width = 1)
+ax2.set_title('Histogram of Weighted average filter 3x3')
+
+fig2, (ax1,ax2) = plt.subplots(2,1) 
+ax1.bar(np.linspace(0,255,num = 256),histogram,width = 1)
+ax1.set_title('Histogram of Original')
+ax2.bar(np.linspace(0,255,num = 256),histogram3,width = 1)
+ax2.set_title('Histogram of Weighted average filter 5x5')
+
+fig3, (ax1,ax2) = plt.subplots(2,1) 
+ax1.bar(np.linspace(0,255,num = 256),histogram,width = 1)
+ax1.set_title('Histogram of Original')
+ax2.bar(np.linspace(0,255,num = 256),histogram4,width = 1)
+ax2.set_title('Histogram of Gaussian filter 3x3')
+
+fig4, (ax1,ax2) = plt.subplots(2,1) 
+ax1.bar(np.linspace(0,255,num = 256),histogram,width = 1)
+ax1.set_title('Histogram of Original')
+ax2.bar(np.linspace(0,255,num = 256),histogram5,width = 1)
+ax2.set_title('Histogram of Gaussian filter 5x5')
+
+fig5, (ax1,ax2) = plt.subplots(2,1) 
+ax1.bar(np.linspace(0,255,num = 256),histogram,width = 1)
+ax1.set_title('Histogram of Original')
+ax2.bar(np.linspace(0,255,num = 256),histogram6,width = 1)
+ax2.set_title('Histogram of Maximum filter 3x3')
+
+fig6, (ax1,ax2) = plt.subplots(2,1) 
+ax1.bar(np.linspace(0,255,num = 256),histogram,width = 1)
+ax1.set_title('Histogram of Original')
+ax2.bar(np.linspace(0,255,num = 256),histogram7,width = 1)
+ax2.set_title('Histogram of Maximum filter 5x5')
+
+fig7, (ax1,ax2) = plt.subplots(2,1) 
+ax1.bar(np.linspace(0,255,num = 256),histogram,width = 1)
+ax1.set_title('Histogram of Original')
+ax2.bar(np.linspace(0,255,num = 256),histogram8,width = 1)
+ax2.set_title('Histogram of Minimum filter 3x3')
+
+fig8, (ax1,ax2) = plt.subplots(2,1) 
+ax1.bar(np.linspace(0,255,num = 256),histogram,width = 1)
+ax1.set_title('Histogram of Original')
+ax2.bar(np.linspace(0,255,num = 256),histogram9,width = 1)
+ax2.set_title('Histogram of Minimum filter 5x5')
+
+fig9, (ax1,ax2) = plt.subplots(2,1) 
+ax1.bar(np.linspace(0,255,num = 256),histogram,width = 1)
+ax1.set_title('Histogram of Original')
+ax2.bar(np.linspace(0,255,num = 256),histogram10,width = 1)
+ax2.set_title('Histogram of Median filter 3x3')
+
+fig10, (ax1,ax2) = plt.subplots(2,1) 
+ax1.bar(np.linspace(0,255,num = 256),histogram,width = 1)
+ax1.set_title('Histogram of Original')
+ax2.bar(np.linspace(0,255,num = 256),histogram11,width = 1)
+ax2.set_title('Histogram of Median filter 5x5')
+
+fig11, (ax1,ax2) = plt.subplots(2,1) 
+ax1.bar(np.linspace(0,255,num = 256),histogram,width = 1)
+ax1.set_title('Histogram of Original')
+ax2.bar(np.linspace(0,255,num = 256),histogram12,width = 1)
+ax2.set_title('Histogram of Weighted median filter 3x3')
+
+fig12, (ax1,ax2) = plt.subplots(2,1) 
+ax1.bar(np.linspace(0,255,num = 256),histogram,width = 1)
+ax1.set_title('Histogram of Original')
+ax2.bar(np.linspace(0,255,num = 256),histogram13,width = 1)
+ax2.set_title('Histogram of Weighted median filter 5x5')
+plt.show()
