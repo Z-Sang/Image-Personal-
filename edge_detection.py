@@ -2,18 +2,6 @@ import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 
-min_intensity = 0
-max_intensity = 256
-
-def calculateHistogram(img):
-    list_img = []
-    for row,index in enumerate(img):
-        list_img = np.concatenate((list_img,index))
-    intensity = [0 for i in range(max_intensity)]
-    for i in list_img:
-        intensity[int(i)] +=1
-    return intensity
-
 def clampling(inten):
     if(inten > 255):
         inten = 255
@@ -63,7 +51,7 @@ def  calculateGradient_orientation(img_horizontal,img_vertical):
     orientation_img = np.array([[0]*width]*height)
     for i in range(height):
         for j in range(width):
-            orientation_img[i][j] = np.arctan2(img_vertical[i][j],img_horizontal[i][j]) * 180 / np.pi
+            orientation_img[i][j] = np.arctan2(img_vertical[i][j],img_horizontal[i][j]) * 180 / np.pi 
             orientation_img[i][j] = clampling(orientation_img[i][j])
 
     return orientation_img
@@ -92,46 +80,32 @@ img11 = np.array(calculateGradient_orientation(img2,img3),dtype='uint8')
 img12 = np.array(calculateGradient_orientation(img4,img5),dtype='uint8')
 img13 = np.array(calculateGradient_orientation(img6,img7),dtype='uint8')
 
-# histogram = calculateHistogram(img)
-# histogram2 = calculateHistogram(img2)
-# histogram3 = calculateHistogram(img3)
-# histogram4 = calculateHistogram(img4)
-# histogram5 = calculateHistogram(img5)
-# histogram6 = calculateHistogram(img6)
-# histogram7 = calculateHistogram(img7)
-# histogram8 = calculateHistogram(img8)
-# histogram9 = calculateHistogram(img9)
-# histogram10 = calculateHistogram(img10)
-# histogram11 = calculateHistogram(img11)
-# histogram12 = calculateHistogram(img12)
-# histogram13 = calculateHistogram(img13)
+cv2.imshow('img',img)
+cv2.waitKey(0)
+cv2.imshow('img2',np.array(img2,dtype ='uint8'))
+cv2.waitKey(0)
+cv2.imshow('img3',np.array(img3,dtype ='uint8'))
+cv2.waitKey(0)
+cv2.imshow('img4',np.array(img4,dtype ='uint8'))
+cv2.waitKey(0)
+cv2.imshow('img5',np.array(img5,dtype ='uint8'))
+cv2.waitKey(0)
+cv2.imshow('img6',np.array(img6,dtype ='uint8'))
+cv2.waitKey(0)
+cv2.imshow('img7',np.array(img7,dtype ='uint8'))
+cv2.waitKey(0)
 
-# cv2.imshow('img',img)
-# cv2.waitKey(0)
-# cv2.imshow('img2',np.array(img2,dtype ='uint8'))
-# cv2.waitKey(0)
-# cv2.imshow('img3',np.array(img3,dtype ='uint8'))
-# cv2.waitKey(0)
-# cv2.imshow('img4',np.array(img4,dtype ='uint8'))
-# cv2.waitKey(0)
-# cv2.imshow('img5',np.array(img5,dtype ='uint8'))
-# cv2.waitKey(0)
-# cv2.imshow('img6',np.array(img6,dtype ='uint8'))
-# cv2.waitKey(0)
-# cv2.imshow('img7',np.array(img7,dtype ='uint8'))
-# cv2.waitKey(0)
-
-# cv2.imshow('img8',img8)
-# cv2.waitKey(0)
+cv2.imshow('img8',img8)
+cv2.waitKey(0)
 cv2.imshow('img11',img11)
-# cv2.waitKey(0)
+cv2.waitKey(0)
 
-# cv2.imshow('img9',img9)
-# cv2.waitKey(0)
+cv2.imshow('img9',img9)
+cv2.waitKey(0)
 cv2.imshow('img12',img12)
-# cv2.waitKey(0)
+cv2.waitKey(0)
 
-# cv2.imshow('img10',img10)
-# cv2.waitKey(0)
+cv2.imshow('img10',img10)
+cv2.waitKey(0)
 cv2.imshow('img13',img13)
 cv2.waitKey(0)
