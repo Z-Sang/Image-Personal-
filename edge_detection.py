@@ -25,6 +25,7 @@ def filter_image(img,coef):
     filter_img = np.array([[0]*width]*height)
     img = zeropadding(img,1)
     sum_coef = abs(coef[0][0]) +  abs(coef[0][1]) +  abs(coef[0][2]) +  abs(coef[1][0]) +  abs(coef[1][1]) +  abs(coef[1][2]) +  abs(coef[2][0]) +  abs(coef[2][1]) +  abs(coef[2][2])     
+    print(sum_coef)
     if sum_coef == 0:
         sum_coef = 1
     for i in range(height):
@@ -32,31 +33,38 @@ def filter_image(img,coef):
             filter_img[i][j] = 1/sum_coef * (img[i-1][j-1] * coef[0][0] + img[i-1][j] * coef[0][1] + img[i-1][j+1] * coef[0][2] 
                                 + img[i][j-1] * coef[1][0] + img[i][j] * coef[1][1] + img[i][j+1] * coef[1][2]
                                 + img[i+1][j-1] * coef[2][0] + img[i+1][j] * coef[2][1] + img[i+1][j+1] * coef[2][2])
-            filter_img[i][j] = clampling(filter_img[i][j])
         
     return filter_img
 
 def  calculateGradient_magnitude(img_horizontal,img_vertical):
-    height,width = img.shape
+    height,width = img_horizontal.shape
     magnitude_img = np.array([[0]*width]*height)
     for i in range(height):
         for j in range(width):
             magnitude_img[i][j] = np.sqrt(np.power(img_horizontal[i][j],2) + np.power(img_vertical[i][j],2))
-            magnitude_img[i][j] = clampling(magnitude_img[i][j])
+            # magnitude_img[i][j] = clampling(magnitude_img[i][j])
 
     return magnitude_img
 
 def  calculateGradient_orientation(img_horizontal,img_vertical):
-    height,width = img.shape
+    height,width = img_horizontal.shape
     orientation_img = np.array([[0]*width]*height)
     for i in range(height):
         for j in range(width):
             orientation_img[i][j] = np.arctan2(img_vertical[i][j],img_horizontal[i][j]) * 180 / np.pi 
-            orientation_img[i][j] = clampling(orientation_img[i][j])
+            # orientation_img[i][j] = clampling(orientation_img[i][j])
 
     return orientation_img
 
-img = cv2.imread('tree.jpg',0)
+def clampling_image(img):
+    height,width = img.shape
+    for i in range(height):
+        for j in range(width):
+            img[i][j] = clampling(img[i][j])
+    
+    return img
+
+img = cv2.imread('white_black.jpg',0)
 
 prewitt_horizontal = [[-1,0,1],[-1,0,1],[-1,0,1]]
 prewitt_vertical = [[-1,-1,-1],[0,0,0],[1,1,1]]
@@ -80,32 +88,32 @@ img11 = np.array(calculateGradient_orientation(img2,img3),dtype='uint8')
 img12 = np.array(calculateGradient_orientation(img4,img5),dtype='uint8')
 img13 = np.array(calculateGradient_orientation(img6,img7),dtype='uint8')
 
-cv2.imshow('img',img)
-cv2.waitKey(0)
+# cv2.imshow('img',img)
+# cv2.waitKey(0)
 cv2.imshow('img2',np.array(img2,dtype ='uint8'))
-cv2.waitKey(0)
+# cv2.waitKey(0)
 cv2.imshow('img3',np.array(img3,dtype ='uint8'))
-cv2.waitKey(0)
+# cv2.waitKey(0)
 cv2.imshow('img4',np.array(img4,dtype ='uint8'))
-cv2.waitKey(0)
+# cv2.waitKey(0)
 cv2.imshow('img5',np.array(img5,dtype ='uint8'))
-cv2.waitKey(0)
+# cv2.waitKey(0)
 cv2.imshow('img6',np.array(img6,dtype ='uint8'))
-cv2.waitKey(0)
+# cv2.waitKey(0)
 cv2.imshow('img7',np.array(img7,dtype ='uint8'))
 cv2.waitKey(0)
 
 cv2.imshow('img8',img8)
-cv2.waitKey(0)
+# cv2.waitKey(0)
 cv2.imshow('img11',img11)
-cv2.waitKey(0)
+# cv2.waitKey(0)
 
 cv2.imshow('img9',img9)
-cv2.waitKey(0)
+# cv2.waitKey(0)
 cv2.imshow('img12',img12)
-cv2.waitKey(0)
+# cv2.waitKey(0)
 
 cv2.imshow('img10',img10)
-cv2.waitKey(0)
+# cv2.waitKey(0)
 cv2.imshow('img13',img13)
 cv2.waitKey(0)
